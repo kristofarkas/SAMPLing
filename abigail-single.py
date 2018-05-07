@@ -1,5 +1,5 @@
 from htbac import Protocol, Simulation, System, Runner, AbFile
-from htbac.protocols import Esmacs
+from htbac.protocols import Afe
 
 prefix = "models/complex"
 system_names = ['CB8-G3', 'OA-G3', 'OA-G6']
@@ -18,7 +18,7 @@ for s in system_names:
 
 esm = Protocol(clone_settings=False)
 
-for step, numsteps in zip(Esmacs.steps, Esmacs.numsteps):
+for step, numsteps in zip(Afe.steps, Afe.numsteps):
     sim = Simulation()
     sim.engine = 'namd_mpi'
     sim.cores = 32
@@ -28,14 +28,14 @@ for step, numsteps in zip(Esmacs.steps, Esmacs.numsteps):
     sim.switchingdist = 10.0
     sim.numsteps = step
 
-    sim.add_ensemble('replica', range(25))
-    sim.add_ensemble('system', [systems])
-    sim.add_ensemble('lamdawindow', [1.0, 0.9, 0.8])
+    sim.add_ensemble('replica', range(5))
+    sim.add_ensemble('system', systems)
+    sim.add_ensemble('lamdawindow', [0.0, 0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
 
     sim.add_input_file(step, is_executable_argument=True)
 
-    sim.add_variable(name='k1', value=property(lambda: sim.lamdawindow * 10), in_file='*restraint_1.0.in')
-    sim.add_variable(name='k2', value=property(lambda: sim.lamdawindow * 500), in_file='*restraint_1.0.in')
+    sim.add_variable(name='k1', value=10, in_file='*restraint_1.0.in')
+    sim.add_variable(name='k2', value=500, in_file='*restraint_1.0.in')
 
     esm.append(sim)
 
