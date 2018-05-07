@@ -20,7 +20,8 @@ esm = Protocol(clone_settings=False)
 
 for step, numsteps in zip(Esmacs.steps, Esmacs.numsteps):
     sim = Simulation()
-    sim.engine = 'namd_openmp_cuda'
+    sim.engine = 'namd_mpi'
+    sim.cores = 32
 
     sim.cutoff = 12.0
     sim.pairlistdist = 13.5
@@ -38,6 +39,6 @@ for step, numsteps in zip(Esmacs.steps, Esmacs.numsteps):
 
     esm.append(sim)
 
-runner = Runner(resource='titan_orte', comm_server=('csc190specfem.marble.ccs.ornl.gov', 30672))
+runner = Runner(resource='bw_aprun', comm_server=('two.radical-project.org', 33166))
 runner.add_protocol(esm)
-runner.run(walltime=720, dry_run=True)
+runner.run(walltime=1440, queue='high')
