@@ -41,6 +41,6 @@ sim.add_variable(name='k2', value=500, in_file='*restraint_1.0.in')
 
 # afe.append(sim)
 
-runner = Runner(resource='bw_aprun', comm_server=('two.radical-project.org', 33166))
+runner = Runner(resource='bw_aprun', comm_server=('two.radical-project.org', 33166), access_schema='local')
 runner.add_protocol(sim)
 runner.run(walltime=1440, queue='high')
