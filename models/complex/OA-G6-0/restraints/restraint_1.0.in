@@ -1,6 +1,6 @@
-bond 188 8 k1 5.308
-angle 189 188 8 k2 85.124
-angle 188 8 7 k2 125.454
-dihedral 185 189 188 8 k2 116.137
-dihedral 189 188 8 7 k2 25.200
-dihedral 188 8 7 37 k2 -7.408
+bond 188 8 <k1> 5.308
+angle 189 188 8 <k2> 85.124
+angle 188 8 7 <k2> 125.454
+dihedral 185 189 188 8 <k2> 116.137
+dihedral 189 188 8 7 <k2> 25.200
+dihedral 188 8 7 37 <k2> -7.408

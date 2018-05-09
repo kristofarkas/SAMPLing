@@ -27,20 +27,18 @@ sim.cores = 32
 
 sim.cutoff = 12.0
 sim.pairlistdist = 13.5
-sim.switchingdist = 10.0
-sim.numsteps = step
+sim.switchdist = 10.0
+sim.numsteps = numsteps
 
-sim.add_ensemble('replica', values=range(5))
-sim.add_ensemble('system', systems)
-sim.add_ensemble('lamdawindow', [0.0, 0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0])
+sim.add_ensemble('replica', values=range(2))
+sim.add_ensemble('system', values=systems[:2])
+sim.add_ensemble('lambdawindow', values=[0.0, 0.01, 0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0][:2])
 
 sim.add_input_file(step, is_executable_argument=True)
 
 sim.add_variable(name='k1', value=10, in_file='*restraint_1.0.in')
 sim.add_variable(name='k2', value=500, in_file='*restraint_1.0.in')
 
-# afe.append(sim)
-
-runner = Runner(resource='bw_local_orte', comm_server=('two.radical-project.org', 33166))
+runner = Runner(resource='bw_aprun', comm_server=('two.radical-project.org', 33166))
 runner.add_protocol(sim)
-runner.run(walltime=1440, queue='high')
+runner.run(walltime=1440, queue='high', access_schema='local')
