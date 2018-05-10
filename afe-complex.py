@@ -1,4 +1,4 @@
-from htbac import Protocol, Simulation, System, Runner, AbFile
+from htbac import Simulation, System, Runner, AbFile
 from htbac.protocols import Afe
 
 prefix = "models/complex"
@@ -17,7 +17,6 @@ for s in system_names:
         tags = AbFile(folder+"tags.pdb", tag='alchemicaltags').with_prefix(name).with_prefix(name)
         systems.append(System(name, files=[pdb, top, coord, rest, tags]))
 
-# afe = Protocol(clone_settings=False)
 step = Afe.step0
 numsteps = Afe.numsteps[0]
 
